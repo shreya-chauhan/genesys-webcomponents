@@ -1,0 +1,41 @@
+// Style
+gux-flyout-menu-beta {
+  background-color: #fdfdfd;
+  box-shadow: 0 0 5px 0 rgba(218, 225, 232, 1);
+  display: block;
+  margin-top: 12px;
+  min-width: 185px;
+  padding: 10px 0;
+  position: relative;
+
+  &::after,
+  &::before {
+    content: '';
+    height: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  &::after {
+    border-bottom: 11px solid #fff;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    left: 10px;
+    top: -11px;
+  }
+
+  &::before {
+    border-bottom: 12px solid rgba(218, 225, 232, 0.8);
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    left: 9px;
+    top: -12px;
+  }
+
+  .gux-flyout {
+    &-content {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

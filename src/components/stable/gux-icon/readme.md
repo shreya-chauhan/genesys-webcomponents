@@ -28,6 +28,7 @@
  - [gux-disclosure-button](../gux-disclosure-button)
  - [gux-dropdown](../gux-dropdown)
  - [gux-error-message-beta](../../beta/form/gux-form-field/components/gux-error-message-beta)
+ - [gux-flyout-option-beta](../../beta/gux-flyout-menu-beta/gux-flyout-option-beta)
  - [gux-input-color-beta](../../beta/form/gux-form-field/components/gux-input-color-beta)
  - [gux-modal](../gux-modal)
  - [gux-notification-toast](../gux-notification-toast)
@@ -56,6 +57,7 @@ graph TD;
   gux-disclosure-button --> gux-icon
   gux-dropdown --> gux-icon
   gux-error-message-beta --> gux-icon
+  gux-flyout-option-beta --> gux-icon
   gux-input-color-beta --> gux-icon
   gux-modal --> gux-icon
   gux-notification-toast --> gux-icon

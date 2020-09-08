@@ -337,5 +337,18 @@
   },
   "typography": {},
   "color": {},
-  "spacing": {}
+  "spacing": {},
+  "gux-flyout-menu": {},
+  "gux-flyout-menu-beta": {
+    "attributes": {},
+    "events": {
+      "menuOptionSelected": "Fired when option in flyout menu being selected"
+    }
+  },
+  "gux-flyout-option-beta": {
+    "attributes": {},
+    "events": {
+      "shortcutEvent": "Standard Event"
+    }
+  }
 }

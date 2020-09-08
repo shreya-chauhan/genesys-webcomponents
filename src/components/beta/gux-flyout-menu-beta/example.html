@@ -1,0 +1,86 @@
+<div style="display: flex;">
+  <div style="margin-left: 20px; min-width: 200px;">
+    <gux-button
+      accent="primary"
+      onClick='(function() {
+          const html = window.toHTML(`
+            <gux-flyout-menu-beta>
+              <gux-flyout-option-beta
+                short-cut="Crl+Alt+A"
+                key-code="17"
+                second-key-code="18"
+                third-key-code="65"
+              >
+                <div slot="title">Option One</div>
+              </gux-flyout-option-beta>
+              <gux-flyout-option-beta short-cut="Crl+Alt+C">
+                <div slot="title">Option Two</div>
+              </gux-flyout-option-beta>
+              <gux-flyout-option-beta short-cut="Shift+A">
+                <div slot="title">Option Three</div>
+              </gux-flyout-option-beta>
+              <gux-flyout-option-beta short-cut="⌘A">
+                <div slot="title">Option Four</div>
+              </gux-flyout-option-beta>
+              <gux-flyout-option-beta short-cut="⌘⇧A">
+                <div slot="title">Option Five</div>
+              </gux-flyout-option-beta>
+            </gux-flyout-menu-beta>
+          `);
+
+          document.getElementById("flyout-menu-first-container").appendChild(html);
+      })()'
+    >
+      Flyout example 1
+    </gux-button>
+    <div id="flyout-menu-first-container"></div>
+  </div>
+
+  <div style="margin-left: 20px; min-width: 200px;">
+    <gux-button
+      accent="primary"
+      onClick='(function() {
+          const html = window.toHTML(`
+            <gux-flyout-menu-beta>
+              <gux-flyout-option-beta with-icon>
+                <div slot="title">Option One</div>
+                <gux-flyout-submenu-beta slot="submenu">
+                  <gux-flyout-option-beta>
+                    <div slot="title">Option One</div>
+                  </gux-flyout-option-beta>
+                  <gux-flyout-option-beta>
+                    <div slot="title">Option Two</div>
+                  </gux-flyout-option-beta>
+                  <gux-flyout-option-beta with-icon>
+                    <div slot="title">Option Three</div>
+                    <gux-flyout-submenu-beta slot="submenu">
+                      <gux-flyout-option-beta short-cut="⌘A">
+                        <div slot="title">Option One</div>
+                      </gux-flyout-option-beta>
+                      <gux-flyout-option-beta short-cut="⌘⇧A">
+                        <div slot="title">Option Two</div>
+                      </gux-flyout-option-beta>
+                    </gux-flyout-submenu-beta>
+                  </gux-flyout-option-beta>
+                  <gux-flyout-option-beta>
+                    <div slot="title">Option Four</div>
+                  </gux-flyout-option-beta>
+                </gux-flyout-submenu-beta>
+              </gux-flyout-option-beta>
+              <gux-flyout-option-beta>
+                <div slot="title">Option Two</div>
+              </gux-flyout-option-beta>
+              <gux-flyout-option-beta>
+                <div slot="title">Option Three</div>
+              </gux-flyout-option-beta>
+            </gux-flyout-menu-beta>
+          `);
+
+          document.getElementById("flyout-menu-second-container").appendChild(html);
+      })()'
+    >
+      Flyout example 2
+    </gux-button>
+    <div id="flyout-menu-second-container"></div>
+  </div>
+</div>
