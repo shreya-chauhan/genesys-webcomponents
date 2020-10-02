@@ -1,0 +1,61 @@
+<h1>gux-switch</h1>
+
+<h2>Small</h2>
+<gux-switch-beta
+  id="small"
+  layout="small"
+  selected-value="Day"
+></gux-switch-beta>
+
+<h2>Medium</h2>
+<gux-switch-beta
+  id="medium"
+  layout="medium"
+  selected-value="Minute"
+></gux-switch-beta>
+
+<h2>Large</h2>
+<gux-switch-beta
+  id="large"
+  layout="large"
+  selected-value="Month"
+></gux-switch-beta>
+
+<style
+  onload="(function () {
+    [
+      document.getElementById('small'),
+      document.getElementById('medium'),
+      document.getElementById('large')
+    ].forEach(function (s) {
+      s.items = [
+        {
+          displayName: 'Month',
+          value: 'Month'
+        },
+        {
+          displayName: 'Week',
+          value: 'Week'
+        },
+        {
+          displayName: 'Day',
+          value: 'Day'
+        },
+        {
+          displayName: 'Hour',
+          isDisabled: true,
+          value: 'Hour'
+        },
+        {
+          displayName: 'Minute',
+          value: 'Minute'
+        }
+      ];
+    });
+  }
+  )()"
+>
+  .not-used {
+    -custom-noop: noop;
+  }
+</style>
