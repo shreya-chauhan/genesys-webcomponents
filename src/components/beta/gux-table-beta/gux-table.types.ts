@@ -8,3 +8,8 @@ export interface ISortState {
   columnName: string;
   sortDirection: string;
 }
+
+export interface ISelectedState {
+  rowIds: string[];
+  actionType: 'selected' | 'unselected';
+}

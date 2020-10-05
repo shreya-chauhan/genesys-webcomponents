@@ -17,9 +17,10 @@
 
 ## Events
 
-| Event         | Description                                               | Type                      |
-| ------------- | --------------------------------------------------------- | ------------------------- |
-| `sortChanged` | Triggers when the sorting of the table column is changed. | `CustomEvent<ISortState>` |
+| Event              | Description                                               | Type                          |
+| ------------------ | --------------------------------------------------------- | ----------------------------- |
+| `selectionChanged` | Triggers when table row was selected/unselected           | `CustomEvent<ISelectedState>` |
+| `sortChanged`      | Triggers when the sorting of the table column is changed. | `CustomEvent<ISortState>`     |
 
 
 ## Dependencies
