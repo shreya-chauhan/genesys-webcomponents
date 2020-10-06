@@ -333,7 +333,7 @@
       "resizable-columns": "checkbox"
     },
     "events": {
-      "selectionChanged": "Fired when table row was selected/unselected",
+      "guxselectionchanged": "Fired when table row was selected/unselected",
       "sortChanged": "Fired when sorting of the table column is changed"
     }
   },

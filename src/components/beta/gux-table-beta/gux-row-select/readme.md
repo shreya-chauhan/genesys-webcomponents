@@ -5,11 +5,18 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property   | Attribute  | Description | Type      | Default |
+| ---------- | ---------- | ----------- | --------- | ------- |
+| `selected` | `selected` |             | `boolean` | `false` |
+
+
 ## Events
 
-| Event       | Description | Type               |
-| ----------- | ----------- | ------------------ |
-| `selectRow` |             | `CustomEvent<any>` |
+| Event                     | Description | Type               |
+| ------------------------- | ----------- | ------------------ |
+| `internalrowselectchange` |             | `CustomEvent<any>` |
 
 
 ## Dependencies

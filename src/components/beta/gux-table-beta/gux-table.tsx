@@ -86,7 +86,7 @@ export class GuxTable {
   /**
    * Triggers when table row was selected/unselected
    */
-  @Event() selectionChanged: EventEmitter<ISelectedState>;
+  @Event() guxselectionchanged: EventEmitter<ISelectedState>;
 
   /**
    * Triggers when the sorting of the table column is changed.
@@ -114,8 +114,8 @@ export class GuxTable {
     }
   }
 
-  @Listen('selectRow')
-  onSelectRow(event): void {
+  @Listen('internalrowselectchange')
+  onInternalRowSelectChange(event: CustomEvent): void {
     this.handleSelectableRows(event.target);
   }
 
@@ -462,66 +462,67 @@ export class GuxTable {
     }
   }
 
-  private rowSelection(checkbox: HTMLGuxCheckboxElement): void {
-    const currentRow: HTMLElement =
-      checkbox.parentElement.parentElement.parentElement;
-    if (checkbox.checked) {
+  private rowSelection(rowSelectbox: HTMLGuxRowSelectElement): void {
+    const currentRow: HTMLTableRowElement = rowSelectbox.closest('tr');
+
+    if (rowSelectbox.selected) {
       currentRow.setAttribute('data-selected-row', '');
-      this.selectionChanged.emit({
+      this.guxselectionchanged.emit({
         rowIds: [currentRow.getAttribute('data-row-id')],
         actionType: 'selected'
       });
     } else {
       currentRow.removeAttribute('data-selected-row');
-      this.selectionChanged.emit({
+      this.guxselectionchanged.emit({
         rowIds: [currentRow.getAttribute('data-row-id')],
         actionType: 'unselected'
       });
     }
   }
 
-  private allRowsSelection(mainCheckbox: HTMLGuxCheckboxElement): void {
-    mainCheckbox.checked = mainCheckbox.checked ? false : true;
-    const rowsSelectionCheckboxes: NodeList = this.tableContainer.querySelectorAll(
-      'tbody gux-checkbox'
-    );
-    const allAttributes: string[] = [];
-    rowsSelectionCheckboxes.forEach((checkbox: HTMLGuxCheckboxElement) => {
-      const parentTrElement: HTMLElement =
-        checkbox.parentElement.parentElement.parentElement;
-      allAttributes.push(parentTrElement.getAttribute('data-row-id'));
-      if (mainCheckbox.checked) {
-        checkbox.checked = true;
-        parentTrElement.setAttribute('data-selected-row', '');
+  private allRowsSelection(
+    allRowSelectbox: HTMLGuxRowSelectElement,
+    dataRowsSelectboxes: HTMLGuxRowSelectElement[]
+  ): void {
+    const rowIds: string[] = [];
+    const actionType = allRowSelectbox.selected ? 'selected' : 'unselected';
+
+    dataRowsSelectboxes.forEach((dataRowSelectbox: HTMLGuxRowSelectElement) => {
+      const tableRow: HTMLTableRowElement = dataRowSelectbox.closest('tr');
+
+      rowIds.push(tableRow.getAttribute('data-row-id'));
+
+      if (allRowSelectbox.selected) {
+        dataRowSelectbox.selected = true;
+        tableRow.setAttribute('data-selected-row', '');
       } else {
-        checkbox.checked = false;
-        parentTrElement.removeAttribute('data-selected-row');
+        dataRowSelectbox.selected = false;
+        tableRow.removeAttribute('data-selected-row');
       }
     });
-    this.selectionChanged.emit({
-      rowIds: allAttributes,
-      actionType: mainCheckbox.checked ? 'selected' : 'unselected'
-    });
+
+    this.guxselectionchanged.emit({ rowIds, actionType });
   }
 
-  private handleSelectableRows(rowSelect): void {
-    const bodyCheckboxes: HTMLGuxCheckboxElement[] = Array.from(
-      this.tableContainer.querySelectorAll('tbody gux-row-select gux-checkbox')
+  private handleSelectableRows(rowSelect: EventTarget): void {
+    const dataRowsSelectboxes: HTMLGuxRowSelectElement[] = Array.from(
+      this.tableContainer.querySelectorAll('tbody tr td gux-row-select')
     );
-    const isNotAllCheckboxesSelected: boolean = !!bodyCheckboxes.find(
-      (checkbox: HTMLGuxCheckboxElement) => {
-        return !checkbox.checked;
+    const isAllDataRowSelectboxesSelected: boolean = dataRowsSelectboxes.every(
+      (dataRowSelectbox: HTMLGuxRowSelectElement) => {
+        return dataRowSelectbox.selected;
       }
     );
-    const currentCheckbox: HTMLGuxCheckboxElement = rowSelect.children[0];
-    const mainCheckbox: HTMLGuxCheckboxElement = this.tableContainer.querySelector(
-      'thead gux-row-select gux-checkbox'
+    const currentSelectbox = rowSelect as HTMLGuxRowSelectElement;
+    const headerRowSelectbox: HTMLGuxRowSelectElement = this.tableContainer.querySelector(
+      'thead tr th gux-row-select'
     );
-    mainCheckbox.checked = !isNotAllCheckboxesSelected;
-    if (currentCheckbox === mainCheckbox) {
-      this.allRowsSelection(currentCheckbox);
+
+    if (currentSelectbox === headerRowSelectbox) {
+      this.allRowsSelection(currentSelectbox, dataRowsSelectboxes);
     } else {
-      this.rowSelection(currentCheckbox);
+      headerRowSelectbox.selected = isAllDataRowSelectboxesSelected;
+      this.rowSelection(currentSelectbox);
     }
   }
 

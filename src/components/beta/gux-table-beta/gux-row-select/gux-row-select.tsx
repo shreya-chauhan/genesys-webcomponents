@@ -1,17 +1,32 @@
-import { Component, h, Event, EventEmitter } from '@stencil/core';
+import {
+  Component,
+  h,
+  Event,
+  EventEmitter,
+  JSX,
+  Listen,
+  Prop
+} from '@stencil/core';
 
 @Component({
   tag: 'gux-row-select'
 })
 export class GuxRowSelect {
-  @Event()
-  selectRow: EventEmitter;
+  @Prop()
+  selected = false;
 
-  private handlerCheck(): void {
-    this.selectRow.emit();
+  @Event()
+  internalrowselectchange: EventEmitter;
+
+  @Listen('check')
+  onCheck(event: CustomEvent): void {
+    event.stopPropagation();
+
+    this.selected = event.detail;
+    this.internalrowselectchange.emit();
   }
 
-  render() {
-    return <gux-checkbox onCheck={this.handlerCheck.bind(this)}></gux-checkbox>;
+  render(): JSX.Element {
+    return <gux-checkbox checked={this.selected}></gux-checkbox>;
   }
 }

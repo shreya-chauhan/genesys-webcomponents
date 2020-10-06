@@ -17,10 +17,10 @@
 
 ## Events
 
-| Event              | Description                                               | Type                          |
-| ------------------ | --------------------------------------------------------- | ----------------------------- |
-| `selectionChanged` | Triggers when table row was selected/unselected           | `CustomEvent<ISelectedState>` |
-| `sortChanged`      | Triggers when the sorting of the table column is changed. | `CustomEvent<ISortState>`     |
+| Event                 | Description                                               | Type                          |
+| --------------------- | --------------------------------------------------------- | ----------------------------- |
+| `guxselectionchanged` | Triggers when table row was selected/unselected           | `CustomEvent<ISelectedState>` |
+| `sortChanged`         | Triggers when the sorting of the table column is changed. | `CustomEvent<ISortState>`     |
 
 
 ## Dependencies
