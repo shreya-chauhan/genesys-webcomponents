@@ -10,14 +10,16 @@ import {
   readTask,
   State
 } from '@stencil/core';
+
 import { buildI18nForComponent, GetI18nValue } from '../../../i18n';
+import { whenEventIsFrom } from '../../../common-utils';
+
 import tableResources from './i18n/en.json';
 import {
-  IColumnResizeState,
-  ISortState,
-  ISelectedState
+  GuxTableColumnResizeState,
+  GuxTableSortState,
+  GuxTableSelectedState
 } from './gux-table.types';
-import { whenEventIsFrom } from '../../../common-utils';
 
 const COL_RESIZE_HANDLE_WIDTH = 3;
 
@@ -27,11 +29,11 @@ const COL_RESIZE_HANDLE_WIDTH = 3;
 })
 export class GuxTable {
   @Element()
-  root: HTMLElement;
+  root: HTMLGuxTableBetaElement;
 
   private resizeObserver: ResizeObserver;
   private i18n: GetI18nValue;
-  private columnResizeState: IColumnResizeState | null;
+  private columnResizeState: GuxTableColumnResizeState | null;
   private tableId: string = this.generateTableId();
   private columnsWidths: object = {};
 
@@ -86,12 +88,12 @@ export class GuxTable {
   /**
    * Triggers when table row was selected/unselected
    */
-  @Event() guxselectionchanged: EventEmitter<ISelectedState>;
+  @Event() guxselectionchanged: EventEmitter<GuxTableSelectedState>;
 
   /**
    * Triggers when the sorting of the table column is changed.
    */
-  @Event() sortChanged: EventEmitter<ISortState>;
+  @Event() sortChanged: EventEmitter<GuxTableSortState>;
 
   /**
    * Indicates that table should have resizable columns
@@ -468,13 +470,13 @@ export class GuxTable {
     if (rowSelectbox.selected) {
       currentRow.setAttribute('data-selected-row', '');
       this.guxselectionchanged.emit({
-        rowIds: [currentRow.getAttribute('data-row-id')],
+        rowValues: [currentRow.getAttribute('data-row-id')],
         actionType: 'selected'
       });
     } else {
       currentRow.removeAttribute('data-selected-row');
       this.guxselectionchanged.emit({
-        rowIds: [currentRow.getAttribute('data-row-id')],
+        rowValues: [currentRow.getAttribute('data-row-id')],
         actionType: 'unselected'
       });
     }
@@ -484,13 +486,13 @@ export class GuxTable {
     allRowSelectbox: HTMLGuxRowSelectElement,
     dataRowsSelectboxes: HTMLGuxRowSelectElement[]
   ): void {
-    const rowIds: string[] = [];
+    const rowValues: string[] = [];
     const actionType = allRowSelectbox.selected ? 'selected' : 'unselected';
 
     dataRowsSelectboxes.forEach((dataRowSelectbox: HTMLGuxRowSelectElement) => {
       const tableRow: HTMLTableRowElement = dataRowSelectbox.closest('tr');
 
-      rowIds.push(tableRow.getAttribute('data-row-id'));
+      rowValues.push(tableRow.getAttribute('data-row-id'));
 
       if (allRowSelectbox.selected) {
         dataRowSelectbox.selected = true;
@@ -501,7 +503,7 @@ export class GuxTable {
       }
     });
 
-    this.guxselectionchanged.emit({ rowIds, actionType });
+    this.guxselectionchanged.emit({ rowValues, actionType });
   }
 
   private handleSelectableRows(rowSelect: EventTarget): void {
