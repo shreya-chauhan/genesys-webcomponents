@@ -1,0 +1,7 @@
+{
+  "title": "Context Search",
+  "eraseBtnAria": "Clear",
+  "navigateNextBtn": "Next",
+  "navigatePreviousBtn": "Previous",
+  "totalMatches": "{currentMatch, number} of {matchCount, number}"
+}
